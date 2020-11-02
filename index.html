@@ -1,0 +1,251 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.18/c3.min.css" rel="stylesheet" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.18/c3.min.js"></script>
+    
+    <style>
+        #ricerca {
+            width: 500px;
+            margin: 10px;
+        }
+        .c3-target-Giornalieri {
+            display: none;
+        }
+    </style>
+
+    <title>Grafici Andamento Covid in Italia</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div id="ricerca">
+                    <div class="input-group mb-3">
+                        <input type="text" id="regione" class="form-control"> 
+                        
+                        <div class="input-group-append">
+                            <button  class="btn btn-outline-secondary" type="button" onclick="validateInput()">Stampa</button>
+                        </div>
+                        <script>
+                            // controlla se nella casella di input viene premuto Enter
+                            // avvia la validazione dell'input
+                            $('#regione').keyup(function (e) {
+                                if (e.keyCode === 13) {
+                                    validateInput();
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-9">
+                <div id="chartTotalePositivi"></div>
+
+                <br>
+
+                <div id="chartMorti"></div>
+            </div>
+
+            <div class="col-xl-3" id="tabella"></div>
+        </div>
+    
+   
+    </div>
+
+    <script>
+        // controlla che l'input non sia vuoto ed elimina gli spazi
+        // se e' vuoto stampa un avviso
+        function validateInput() {
+            // prende il valore del tag input
+            var value = $("#regione").val().trim().toLowerCase();
+            
+            // controlla se l'input e' vuoto
+            if (value == '') {
+                alert("Campo vuoto !");
+            } else {
+                //console.log(value);
+
+                // prende i dati da github e quando e' pronot chiama la funzione success
+                // crea una collezione molto interessante e utile: si puo accedere ai campi con il loro nome
+                d3.csv('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-regioni/dpc-covid19-ita-regioni.csv')
+                    .then(function(data) {
+                        success(data, value);
+                    });
+            }
+        }
+
+        // funzione che viene invocata quando i dati sono stati presi con successo
+        function success(data, value) {
+            // array che conterra' solo i dati della regione scelta
+            var selezione = [];
+
+            // seleziona solo i dati della regione scelta
+            // e li aggiunge all'array selezione
+            data.forEach(function(item, index) {
+                if (item.denominazione_regione.toLowerCase() == value) {
+                    selezione.push(item);
+                }
+            });
+            
+            // controlla la lunghezza della selezione:
+            // se e' vuota allora il nome inserito non e' una regione valida
+            if (selezione.length == 0) {
+                alert("Nome regione non valido !");
+            } else {
+                //console.log(selezione)
+                
+                // per far funzionare c3.js i gli array devono
+                // contenere come primo elemento il nome dell'asse
+                var date = ['x'];
+                var morti = ["Morti"];
+                var totalePositivi = ["Positivi"];
+                var mortiAlGiorno = ["Giornalieri"];
+
+                // seleziona i dati da stampare
+                selezione.forEach(function(item, index) {
+                    date.push(item.data.substring(5, 10));
+                    morti.push(item.deceduti);
+                    totalePositivi.push(item.totale_positivi);
+                });
+
+                for (let index = 2; index < morti.length; index++) {
+                    var tmp = morti[index] - morti[index -1];
+ 
+                    mortiAlGiorno.push(tmp);
+                }
+
+                mortiAlGiorno.push(mortiAlGiorno[mortiAlGiorno.length -1]);
+
+                /** Stampa i Grafici **/
+                
+                // configurazione del grafico dei Morti
+                var chartMorti = c3.generate({
+                    bindto: '#chartMorti',
+                    data: {
+                        x: 'x',
+                        xFormat: '%m-%d',
+                        columns: [
+                            date,
+                            morti
+                        ],
+                        colors: {
+                            Morti: '#ff0000',
+                        }
+                    },
+                    axis: {
+                        x: {
+                            type: 'timeseries',
+                            tick: {
+                                format: '%m-%d',
+                            
+                            }
+                        }
+                        
+                    },
+                    zoom: {
+                            enabled: true
+                    },
+                    transition: {
+                        duration: 100
+                    }
+                });
+
+                // configurazione del grafico dei Positivi totali
+                var chartTotalePositivi = c3.generate({
+                    bindto: '#chartTotalePositivi',
+                    data: {
+                        xs: {
+                            'Positivi': 'x',
+                            'Giornalieri': 'x'
+                        },
+                        xFormat: '%m-%d',
+                        columns: [
+                            date,
+                            totalePositivi,
+                            mortiAlGiorno
+                        ],
+                        colors: {
+                            Positivi: '#FFA500',
+                            Giornalieri: '#000000'
+                        }
+                    },
+                    axis: {
+                        x: {
+                            type: 'timeseries',
+                            tick: {
+                                format: '%m-%d',
+                            
+                            }
+                        }
+                        
+                    },
+                    zoom: {
+                            enabled: true
+                    },
+                    transition: {
+                        duration: 100
+                    }
+                });
+
+                /** Stampa la tabella **/
+                
+                // funzione per stampare la variazione di un campo della tabella
+                var tabellaVariazione = function (a, b) {
+                    var tmpA = parseInt(a);
+                    var tmpB = parseInt(b);
+
+                    var result = tmpA - tmpB;
+
+                    if (result > 0) {
+                        return "+" + result;
+                    } else {
+                        return result;
+                    }
+                }
+
+                // aggiunge la tabella alla pagina
+                $("#tabella").html(
+                    "<table class=\"table table-striped\">" +
+                        "<tr>" +
+                            "<th></th> <th>Totale</th> <th>Variazione</th>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<th scope=\"row\">Positivi</th>" +
+                            "<td>" + totalePositivi[totalePositivi.length -1] + "</td>" +
+                            "<td>" + tabellaVariazione(totalePositivi[totalePositivi.length -1], totalePositivi[totalePositivi.length -2]) + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<th scope=\"row\">Morti</th>" +
+                            "<td>" + morti[morti.length -1] + "</td>" +
+                            "<td>" + tabellaVariazione(mortiAlGiorno[mortiAlGiorno.length -1], 0)+ "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<th scope=\"row\">Guariti</th>" +
+                            "<td>" + selezione[selezione.length -1].dimessi_guariti + "</td>" +
+                            "<td>" + tabellaVariazione(selezione[selezione.length -1].dimessi_guariti, selezione[selezione.length -2].dimessi_guariti) + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<th scope=\"row\">Tamponi</th>" +
+                            "<td>" + selezione[selezione.length -1].tamponi + "</td>" +
+                            "<td>" + tabellaVariazione(selezione[selezione.length -1].tamponi, selezione[selezione.length -2].tamponi) + "</td>" +
+                        "</tr>" +
+                    "</table>"
+                );
+            }
+        }
+
+    </script>
+</body>
+
+</html>
