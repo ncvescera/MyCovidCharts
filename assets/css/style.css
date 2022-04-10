@@ -1,0 +1,72 @@
+.content-block {
+    padding: 40px;
+    font-size: larger;
+}
+
+.progress {
+    width: 300px;
+}
+
+.progress-bar {
+    background: #2ECC71;
+}
+
+.bg-python {
+    background: #E74C3C;
+}
+
+.bg-kotlin {
+    background: #8E44AD;
+}
+
+.bg-js {
+    background: #F39C12;
+}
+
+.title-img {
+    width: 70px;
+    height: 70px;
+}
+
+.text-img {
+    width: 20px;
+    height: 20px;
+}
+
+.tool-img {
+    width: 60px;
+    height: 60px;
+}
+
+.repo {
+    width: auto;
+    height: auto;
+    margin: 5px;
+}
+#aboutMe {
+    background: #2ECC71;
+}
+
+#aboutMe .blockquote-footer {
+    color: #ECF0F1;
+}
+
+
+#languages {
+    background: #F1C40F;
+}
+
+#projects {
+    background: #9B59B6;
+    color: white;
+
+}
+
+#stats {
+    background: #3498DB;
+    color: white;
+}
+
+ol li {
+    margin: 20px;
+}

@@ -1,251 +1,176 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.18/c3.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Devfolio</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.18/c3.min.js"></script>
-    
-    <style>
-        #ricerca {
-            width: 500px;
-            margin: 10px;
-        }
-        .c3-target-Giornalieri {
-            display: none;
-        }
-    </style>
 
-    <title>Grafici Andamento Covid in Italia</title>
 </head>
-
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-12">
-                <div id="ricerca">
-                    <div class="input-group mb-3">
-                        <input type="text" id="regione" class="form-control"> 
-                        
-                        <div class="input-group-append">
-                            <button  class="btn btn-outline-secondary" type="button" onclick="validateInput()">Stampa</button>
-                        </div>
-                        <script>
-                            // controlla se nella casella di input viene premuto Enter
-                            // avvia la validazione dell'input
-                            $('#regione').keyup(function (e) {
-                                if (e.keyCode === 13) {
-                                    validateInput();
-                                }
-                            });
-                        </script>
-                    </div>
-                </div>
-            </div>
+    <!-- Title Bar -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="./assets/imgs/logo.jpeg" width="30" height="30" class="d-inline-block align-top rounded" alt=""> <!-- could be replaced with github link -->
+          Nicolò Vescera (@ncvescera)
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+          
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#aboutMe">About Me</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#languages">Languages & Frameworks</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#projects">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Github Stats</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact Me</a>
+            </li>
+          </ul>
         </div>
-
-        <div class="row">
-            <div class="col-xl-9">
-                <div id="chartTotalePositivi"></div>
-
-                <br>
-
-                <div id="chartMorti"></div>
-            </div>
-
-            <div class="col-xl-3" id="tabella"></div>
-        </div>
+      </div>
+    </nav>
     
-   
+    <!-- About Me -->
+    <div class="container-fluid content-block" id="aboutMe">
+      <h1>Monke say hello ! <img src="./assets/imgs/monke.webp" class="title-img"></h1>
+      <p>
+          I am just a retarded monkey who loves type code 🦍! <br>
+          I am a Machine Learning student in DMI - UniPg 🚀. <br>
+          Linux user (<i>I use Arch btw 🖥️</i>) focused on open source software 🔓. <br>
+          I love develop cli desktop utilities and Android Apps 🤖 and this monke hates web developing, I am not enough retarded for this 🥖.
+      </p>
+
+      <br>
+      
+      <figure class="text-end">
+          <blockquote class="blockquote">
+            <p>Not Programmer but Typing Monkey!</p>
+          </blockquote>
+          
+          <figcaption class="blockquote-footer">
+              <cite>Typing Monkeys Organization's Motto</cite>
+          </figcaption>
+      </figure>
     </div>
 
-    <script>
-        // controlla che l'input non sia vuoto ed elimina gli spazi
-        // se e' vuoto stampa un avviso
-        function validateInput() {
-            // prende il valore del tag input
-            var value = $("#regione").val().trim().toLowerCase();
+    <!-- Programming languages  & frameworks-->
+    <div class="container-fluid content-block" id="languages">
+      <h1>Programming Languages <img src="./assets/imgs/keyboard.webp" class="title-img"></h1>
+      <p>
+        I am currently learning <b>Javascript <img src="./assets/imgs/js.png" class="text-img"></b> and <b>NodeJS</b> for Cross-Platform Desktop Application. <br>
+        I am in ❤️ with <b>Python <img src="./assets/imgs/python.png" class="text-img"></b>, it's my favourite programming langagues for General Porpouse CLI tools, training Machine Learning/Deep Learning models and sometimes for GUI applications.<br>
+        I also love <b>Kotlin <img src="./assets/imgs/kotlin.png" class="text-img"></b> for developing Android Apps !
+      </p>
+
+      <br>
+      
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h3>My Top 3 Languages 💘:</h3>
             
-            // controlla se l'input e' vuoto
-            if (value == '') {
-                alert("Campo vuoto !");
-            } else {
-                //console.log(value);
+            <ol>
+              <li>
+                <b><img src="./assets/imgs/python.png" class="text-img"> Python</b>
+                <div class="progress">
+                  <div class="progress-bar bg-python" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                </div>
+              </li>
+              <li>
+                <b><img src="./assets/imgs/kotlin.png" class="text-img"> Kotlin</b>
+                <div class="progress">
+                  <div class="progress-bar bg-kotlin" role="progressbar" style="width: 68%;" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100">68%</div>
+                </div>
+              </li>
+              <li>
+                <b><img src="./assets/imgs/js.png" class="text-img"> JavaScript</b>
+                <div class="progress">
+                  <div class="progress-bar bg-js" role="progressbar" style="width: 35%;" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
+                </div>
+              </li>
+            </ol>
+          </div>
 
-                // prende i dati da github e quando e' pronot chiama la funzione success
-                // crea una collezione molto interessante e utile: si puo accedere ai campi con il loro nome
-                d3.csv('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-regioni/dpc-covid19-ita-regioni.csv')
-                    .then(function(data) {
-                        success(data, value);
-                    });
-            }
-        }
+          <div class="col">
+            <h3>Tools & Framework I know 🛠️:</h3>
+            <ol>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" class="tool-img"/></a>
+              <a><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Archlinux-icon-crystal-64.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/windows8/windows8-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/apple/apple-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/raspberrypi/raspberrypi-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vscode/vscode-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/github/github-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/kotlin/kotlin-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/android/android-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/androidstudio/androidstudio-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/numpy/numpy-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/pandas/pandas-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/flask/flask-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jupyter/jupyter-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/opencv/opencv-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/tensorflow/tensorflow-original.svg" class="tool-img"/></a>
+              <a><img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Keras_logo.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/electron/electron-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vuejs/vuejs-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/processing/processing-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/markdown/markdown-original.svg" class="tool-img"/></a>
+              <a><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/latex/latex-original.svg" class="tool-img"/></a>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        // funzione che viene invocata quando i dati sono stati presi con successo
-        function success(data, value) {
-            // array che conterra' solo i dati della regione scelta
-            var selezione = [];
+    <!-- Projects -->
+    <div class="container-fluid content-block" id="projects">
+      <h1>My Github Projects <img src="./assets/imgs/rocket.webp" class="title-img"></h1>
+      <p>
+        <a href="https://github.com/ncvescera/GayPass" target="_blank"><img src="https://github-readme-stats.vercel.app/api/pin/?username=ncvescera&repo=gaypass" class="repo" alt=""></a>
+        <a href="https://github.com/ncvescera/GPSPathEditor" target="_blank"><img src="https://github-readme-stats.vercel.app/api/pin/?username=ncvescera&repo=GPSPathEditor" class="repo" alt=""></a>
+        <a href="https://github.com/Typing-Monkeys/Game_of_Life" target="_blank"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Typing-Monkeys&repo=Game_of_Life" class="repo" alt=""></a>
+        <a href="https://github.com/ncvescera/Tesi-AdvMLvsADS" target="_blank"><img src="https://github-readme-stats.vercel.app/api/pin/?username=ncvescera&repo=Tesi-AdvMLvsADS" class="repo" alt=""></a>
+        <a href="https://github.com/Typing-Monkeys/AppuntiUniversita" target="_blank"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Typing-Monkeys&repo=AppuntiUniversita" class="repo" alt=""></a>
+        <a href="https://github.com/ncvescera/ltn-electron" target="_blank"><img src="https://github-readme-stats.vercel.app/api/pin/?username=ncvescera&repo=ltn-electron" class="repo" alt=""></a>
+      </p>
+    </div>
 
-            // seleziona solo i dati della regione scelta
-            // e li aggiunge all'array selezione
-            data.forEach(function(item, index) {
-                if (item.denominazione_regione.toLowerCase() == value) {
-                    selezione.push(item);
-                }
-            });
-            
-            // controlla la lunghezza della selezione:
-            // se e' vuota allora il nome inserito non e' una regione valida
-            if (selezione.length == 0) {
-                alert("Nome regione non valido !");
-            } else {
-                //console.log(selezione)
-                
-                // per far funzionare c3.js i gli array devono
-                // contenere come primo elemento il nome dell'asse
-                var date = ['x'];
-                var morti = ["Morti"];
-                var totalePositivi = ["Positivi"];
-                var mortiAlGiorno = ["Giornalieri"];
+    <!-- GitHub Stats -->
+    <div class="container-fluid content-block" id="stats">
+      <h1>Some Github Stats <img src="./assets/imgs/stats.webp" class="title-img" alt=""></h1>
+      <p>
+        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ncvescera&langs_count=8" alt="">
+      </p>
+    </div>
 
-                // seleziona i dati da stampare
-                selezione.forEach(function(item, index) {
-                    date.push(item.data.substring(5, 10));
-                    morti.push(item.deceduti);
-                    totalePositivi.push(item.totale_positivi);
-                });
-
-                for (let index = 2; index < morti.length; index++) {
-                    var tmp = morti[index] - morti[index -1];
- 
-                    mortiAlGiorno.push(tmp);
-                }
-
-                mortiAlGiorno.push(mortiAlGiorno[mortiAlGiorno.length -1]);
-
-                /** Stampa i Grafici **/
-                
-                // configurazione del grafico dei Morti
-                var chartMorti = c3.generate({
-                    bindto: '#chartMorti',
-                    data: {
-                        x: 'x',
-                        xFormat: '%m-%d',
-                        columns: [
-                            date,
-                            morti
-                        ],
-                        colors: {
-                            Morti: '#ff0000',
-                        }
-                    },
-                    axis: {
-                        x: {
-                            type: 'timeseries',
-                            tick: {
-                                format: '%m-%d',
-                            
-                            }
-                        }
-                        
-                    },
-                    zoom: {
-                            enabled: true
-                    },
-                    transition: {
-                        duration: 100
-                    }
-                });
-
-                // configurazione del grafico dei Positivi totali
-                var chartTotalePositivi = c3.generate({
-                    bindto: '#chartTotalePositivi',
-                    data: {
-                        xs: {
-                            'Positivi': 'x',
-                            'Giornalieri': 'x'
-                        },
-                        xFormat: '%m-%d',
-                        columns: [
-                            date,
-                            totalePositivi,
-                            mortiAlGiorno
-                        ],
-                        colors: {
-                            Positivi: '#FFA500',
-                            Giornalieri: '#000000'
-                        }
-                    },
-                    axis: {
-                        x: {
-                            type: 'timeseries',
-                            tick: {
-                                format: '%m-%d',
-                            
-                            }
-                        }
-                        
-                    },
-                    zoom: {
-                            enabled: true
-                    },
-                    transition: {
-                        duration: 100
-                    }
-                });
-
-                /** Stampa la tabella **/
-                
-                // funzione per stampare la variazione di un campo della tabella
-                var tabellaVariazione = function (a, b) {
-                    var tmpA = parseInt(a);
-                    var tmpB = parseInt(b);
-
-                    var result = tmpA - tmpB;
-
-                    if (result > 0) {
-                        return "+" + result;
-                    } else {
-                        return result;
-                    }
-                }
-
-                // aggiunge la tabella alla pagina
-                $("#tabella").html(
-                    "<table class=\"table table-striped\">" +
-                        "<tr>" +
-                            "<th></th> <th>Totale</th> <th>Variazione</th>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<th scope=\"row\">Positivi</th>" +
-                            "<td>" + totalePositivi[totalePositivi.length -1] + "</td>" +
-                            "<td>" + tabellaVariazione(totalePositivi[totalePositivi.length -1], totalePositivi[totalePositivi.length -2]) + "</td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<th scope=\"row\">Morti</th>" +
-                            "<td>" + morti[morti.length -1] + "</td>" +
-                            "<td>" + tabellaVariazione(mortiAlGiorno[mortiAlGiorno.length -1], 0)+ "</td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<th scope=\"row\">Guariti</th>" +
-                            "<td>" + selezione[selezione.length -1].dimessi_guariti + "</td>" +
-                            "<td>" + tabellaVariazione(selezione[selezione.length -1].dimessi_guariti, selezione[selezione.length -2].dimessi_guariti) + "</td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<th scope=\"row\">Tamponi</th>" +
-                            "<td>" + selezione[selezione.length -1].tamponi + "</td>" +
-                            "<td>" + tabellaVariazione(selezione[selezione.length -1].tamponi, selezione[selezione.length -2].tamponi) + "</td>" +
-                        "</tr>" +
-                    "</table>"
-                );
-            }
-        }
-
-    </script>
+    <!-- Contact Me -->
+    
+    <script src="./assets/bootstrap/js/bootstrap.js"></script>
 </body>
-
 </html>
