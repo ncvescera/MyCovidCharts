@@ -5,6 +5,7 @@
 
 .progress {
     width: auto;
+    max-width: 300px;
 }
 
 .progress-bar {
