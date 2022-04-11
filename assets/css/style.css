@@ -4,7 +4,7 @@
 }
 
 .progress {
-    width: 300px;
+    width: auto;
 }
 
 .progress-bar {
@@ -38,11 +38,17 @@
     height: 60px;
 }
 
+.container-repo {
+    display: inline-block;
+}
+
 .repo {
     width: auto;
     height: auto;
-    margin: 5px;
+    margin: 5px 0 5px 0;
 }
+
+
 #aboutMe {
     background: #2ECC71;
 }
