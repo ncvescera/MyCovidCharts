@@ -85,9 +85,9 @@ h1 {
     font-weight: bold;
 }
 
-.title > .container-fluid > .row :first-child {
+.title .col-6:first-child {
     padding: 0px;
 }
-.title > .container-fluid:last-child {
-    padding: 0px;
+.title .col:last-child {
+    padding-left: 20px;
 }
