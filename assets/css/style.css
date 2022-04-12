@@ -137,3 +137,22 @@ h1 {
 .follow-item:hover {
     background: #BDC3C7;
 }
+
+.school-card .col-md-4 {
+    padding: 10px;
+}
+
+.school-card {
+    max-width: 1000px;
+}
+
+.school-card img {
+    max-height: 176px;
+}
+
+.volta .col-md-4 {
+    background: #111143;
+}
+.unipg .col-md-4 {
+    background: #C0392B; 
+}
